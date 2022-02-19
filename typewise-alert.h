@@ -29,10 +29,6 @@ typedef struct {
     double higherLimit;
 } Limits;
 
-typedef struct {
-    char* Msg[50];
-} EmailMsgInput;
-
 #define PASSIVE_COOLING_MinLimit  0
 #define PASSIVE_COOLING_MaxLimit  35
 #define HI_ACTIVE_COOLING_MixLimit  0
@@ -47,5 +43,5 @@ void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[]));
-void sendToEmail(BreachType breachType, EmailMsgInput msgInputEmail[], void (*fn_ptrAlert)(char[]));
+void sendToEmail(BreachType breachType, char **msgInput, void (*fn_ptrAlert)(char[]))
 void printOnConsole(char msg[]);
