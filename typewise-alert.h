@@ -30,7 +30,7 @@ typedef struct {
 } Limits;
 
 typedef struct {
-    char Msg[50];
+    char* Msg[50];
 } EmailMsgInput;
 
 #define PASSIVE_COOLING_MinLimit  0
