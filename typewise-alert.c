@@ -66,8 +66,8 @@ void sendToEmail(BreachType breachType, EmailMsgInput msgInputEmail[], void (*fn
   strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
   fn_ptrAlert(recepientMsg);
-  char* alertMsg = msgInputEmail[breachType];
-  fn_ptrAlert(alertMsg);
+//   char alertMsg = msgInputEmail[breachType];
+  fn_ptrAlert(msgInputEmail[breachType]);
 //   switch(breachType) {
 //     case TOO_LOW:
 //       printf("To: %s\n", recepient);
