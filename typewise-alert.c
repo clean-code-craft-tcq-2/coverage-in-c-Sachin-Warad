@@ -56,7 +56,7 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
   fn_ptrAlert("alert");
 }
 
-void sendToEmail(BreachType breachType, char **msgInput, void (*fn_ptrAlert)(char[])) {
+void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
   char* recepientMsg = "To: ";
   strcat(recepientMsg,recepient);
