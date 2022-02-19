@@ -62,11 +62,12 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
 
 void sendToEmail(BreachType breachType, EmailMsgInput msgInputEmail[], void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
-  const char* msg = "To: ";
-  strcat(msg,recepient)
+  char* recepientMsg = "To: ";
+  strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
-  fn_ptrAlert(msg);
-  fn_ptrAlert(msgInputEmail[breachType]);
+  fn_ptrAlert(recepientMsg);
+  char* alertMsg = msgInputEmail[breachType];
+  fn_ptrAlert(alertMsg);
 //   switch(breachType) {
 //     case TOO_LOW:
 //       printf("To: %s\n", recepient);
