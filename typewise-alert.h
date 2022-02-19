@@ -3,7 +3,8 @@
 typedef enum {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
-  MED_ACTIVE_COOLING
+  MED_ACTIVE_COOLING,
+  MAX_COOLING
 } CoolingType;
 
 typedef enum {
@@ -24,6 +25,11 @@ typedef struct {
   CoolingType coolingType;
   char brand[48];
 } BatteryCharacter;
+
+typedef struct {
+    double lowerLimit;
+    double higherLimit;
+} Limits;
 
 void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
