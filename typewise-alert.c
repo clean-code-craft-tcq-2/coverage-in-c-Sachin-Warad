@@ -8,7 +8,7 @@ Limits parameterLimits[MAX_COOLINGTYPE] = {
   {MED_ACTIVE_COOLING_MinLimit,MED_ACTIVE_COOLING_MaxLimit}
 };
 
-char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
+const char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
