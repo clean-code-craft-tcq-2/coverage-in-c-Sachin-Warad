@@ -1,10 +1,17 @@
 #include "typewise-alert.h"
 #include <stdio.h>
+#include <string.h>
 
-Limits parameterLimits[MAX_COOLING] = {
-  {0,35},
-  {0,45},
-  {0,40}
+Limits parameterLimits[MAX_COOLINGTYPE] = {
+  {PASSIVE_COOLING_MinLimit,PASSIVE_COOLING_MaxLimit},
+  {HI_ACTIVE_COOLING_MixLimit,HI_ACTIVE_COOLING_MaxLimit},
+  {MED_ACTIVE_COOLING_MinLimit,MED_ACTIVE_COOLING_MaxLimit}
+};
+
+EmailMsgInput msgInputEmail[MaxBreachType] = {
+  {},
+  {"Hi, the temperature is too low"},
+  {"Hi, the temperature is too high"}
 };
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
@@ -21,57 +28,55 @@ BreachType classifyTemperatureBreach(
     CoolingType coolingType, double temperatureInC, Limits parameterLimits[]) {
   int lowerLimit = parameterLimits[coolingType].lowerLimit;
   int upperLimit = parameterLimits[coolingType].higherLimit;
-//   switch(coolingType) {
-//     case PASSIVE_COOLING:
-//       lowerLimit = 0;
-//       upperLimit = 35;
-//       break;
-//     case HI_ACTIVE_COOLING:
-//       lowerLimit = 0;
-//       upperLimit = 45;
-//       break;
-//     case MED_ACTIVE_COOLING:
-//       lowerLimit = 0;
-//       upperLimit = 40;
-//       break;
-//   }
+
   return inferBreach(temperatureInC, lowerLimit, upperLimit);
+}
+
+void printOnConsole(char msg[]) {
+    printf("%s\n",msg);
 }
 
 void checkAndAlert(
     AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
-
+  void (*fn_ptrAlert)(char[]);
+  fn_ptrAlert = &printOnConsole;
   BreachType breachType = classifyTemperatureBreach(
     batteryChar.coolingType, temperatureInC, parameterLimits
   );
 
   switch(alertTarget) {
     case TO_CONTROLLER:
-      sendToController(breachType);
+      sendToController(breachType, fn_ptrAlert);
       break;
     case TO_EMAIL:
-      sendToEmail(breachType);
+      sendToEmail(breachType, msgInputEmail, fn_ptrAlert);
       break;
   }
 }
 
-void sendToController(BreachType breachType) {
+void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
+  fn_ptrAlert("alert");
 }
 
-void sendToEmail(BreachType breachType) {
+void sendToEmail(BreachType breachType, EmailMsgInput msgInputEmail[], void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
-  switch(breachType) {
-    case TOO_LOW:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too low\n");
-      break;
-    case TOO_HIGH:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too high\n");
-      break;
-    case NORMAL:
-      break;
-  }
+  const char* msg = "To: ";
+  strcat(msg,recepient)
+//   printf("To: %s\n", recepient);
+  fn_ptrAlert(msg);
+  fn_ptrAlert(msgInputEmail[breachType]);
+//   switch(breachType) {
+//     case TOO_LOW:
+//       printf("To: %s\n", recepient);
+//       printf("Hi, the temperature is too low\n");
+//       break;
+//     case TOO_HIGH:
+//       printf("To: %s\n", recepient);
+//       printf("Hi, the temperature is too high\n");
+//       break;
+//     case NORMAL:
+//       break;
+//   }
 }
