@@ -8,7 +8,7 @@ Limits parameterLimits[MAX_COOLINGTYPE] = {
   {MED_ACTIVE_COOLING_MinLimit,MED_ACTIVE_COOLING_MaxLimit}
 };
 
-char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
+char msgInput[MaxBreachType][] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -53,12 +53,13 @@ void checkAndAlert(
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
-  fn_ptrAlert("alert");
+  char msg[] = "alert";
+  fn_ptrAlert(msg);
 }
 
 void sendToEmail(BreachType breachType, char **msgInput, void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
-  char* recepientMsg = "To: ";
+  char recepientMsg[] = "To: ";
   strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
   fn_ptrAlert(recepientMsg);
