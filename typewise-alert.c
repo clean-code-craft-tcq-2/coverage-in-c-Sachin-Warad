@@ -50,14 +50,14 @@ void checkAndAlert(
   }
 }
 
-void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
+void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
   const char* alertInfo = "0xfeed : breachType";
   fn_ptrAlert(alertInfo);
 }
 
-void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(char[])) {
+void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[])) {
   const char* recepient = "a.b@c.com";
   char recepientMsg[] = "To: ";
   strcat(recepientMsg,recepient);
