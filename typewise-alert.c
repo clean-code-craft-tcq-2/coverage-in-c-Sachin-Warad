@@ -34,7 +34,7 @@ void printOnConsole(const char msg[]) {
 
 void checkAndAlert(
     AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
-  void (*fn_ptrAlert)(char[]);
+  void (*fn_ptrAlert)(const char[]);
   fn_ptrAlert = &printOnConsole;
   BreachType breachType = classifyTemperatureBreach(
     batteryChar.coolingType, temperatureInC, parameterLimits
