@@ -42,6 +42,6 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
 void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[]));
-void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(char[]));
+void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[]));
+void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[]));
 void printOnConsole(const char msg[]);
