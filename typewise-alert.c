@@ -28,7 +28,7 @@ BreachType classifyTemperatureBreach(
   return inferBreach(temperatureInC, lowerLimit, upperLimit);
 }
 
-void printOnConsole(char msg[]) {
+void printOnConsole(const char msg[]) {
     printf("%s\n",msg);
 }
 
@@ -59,7 +59,7 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
 
 void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
-  char* recepientMsg = "To: ";
+  char recepientMsg[] = "To: ";
   strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
   fn_ptrAlert(recepientMsg);
