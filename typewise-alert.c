@@ -52,9 +52,11 @@ void checkAndAlert(
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   const unsigned short header = 0xfeed;
-  printf("%x : %x\n", header, breachType);
-  const char* alertInfo = "0xfeed : breachType";
-  fn_ptrAlert(alertInfo);
+//   printf("%x : %x\n", header, breachType);
+//   const char* alertInfo = "0xfeed : breachType";
+  char buffer[25];
+  sprintf(buffer,"%x : %x\n",header, breachType);
+  fn_ptrAlert(buffer);
 }
 
 void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[])) {
