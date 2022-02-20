@@ -44,4 +44,4 @@ void checkAndAlert(
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[]));
 void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(char[]));
-void printOnConsole(char msg[]);
+void printOnConsole(const char msg[]);
