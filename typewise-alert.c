@@ -61,7 +61,7 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) 
 void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[])) {
   const char* recepient = "a.b@c.com";
   char recepientMsg[] = "To: ";
-  const buffer[100];
+  char buffer[100];
   strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
   sprintf(buffer,"%s\n, %s\n",recepientMsg,msgInput[breachType]);
