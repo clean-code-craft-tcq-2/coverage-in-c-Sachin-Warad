@@ -45,7 +45,7 @@ void checkAndAlert(
       sendToController(breachType, fn_ptrAlert);
       break;
     case TO_EMAIL:
-      sendToEmail(breachType, msgInput[50], fn_ptrAlert);
+      sendToEmail(breachType, msgInput[][50], fn_ptrAlert);
       break;
   }
 }
