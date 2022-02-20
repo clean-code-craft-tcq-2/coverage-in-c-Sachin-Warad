@@ -24,7 +24,7 @@ TEST_CASE("infers breach based on cooling type") {
   REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, 36, parameterLimits) == NORMAL);
   REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, 50, parameterLimits) == TOO_HIGH);
   
-  REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, -10, parameterLimits) == TOO_LOW);
-  REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 43, parameterLimits) == NORMAL);
+  REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, -20, parameterLimits) == TOO_LOW);
+  REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 36, parameterLimits) == NORMAL);
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 44, parameterLimits) == TOO_HIGH);
 }
