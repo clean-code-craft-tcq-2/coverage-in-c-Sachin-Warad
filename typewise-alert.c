@@ -45,7 +45,7 @@ void checkAndAlert(
       sendToController(breachType, fn_ptrAlert);
       break;
     case TO_EMAIL:
-      sendToEmail(breachType, msgInput, fn_ptrAlert);
+      sendToEmail(breachType, msgInput[], fn_ptrAlert);
       break;
   }
 }
@@ -57,7 +57,7 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(char[])) {
   fn_ptrAlert(msg);
 }
 
-void sendToEmail(BreachType breachType, char **msgInput, void (*fn_ptrAlert)(char[])) {
+void sendToEmail(BreachType breachType, char msgInput[MaxBreachType][], void (*fn_ptrAlert)(char[])) {
   const char* recepient = "a.b@c.com";
   char recepientMsg[] = "To: ";
   strcat(recepientMsg,recepient);
