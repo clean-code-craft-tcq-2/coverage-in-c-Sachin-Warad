@@ -29,7 +29,7 @@ BreachType classifyTemperatureBreach(
 }
 
 void printOnConsole(const char msg[]) {
-    printf("%s\n",msg);
+    printf("%s",msg);
 }
 
 void checkAndAlert(
@@ -53,7 +53,6 @@ void checkAndAlert(
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   const unsigned short header = 0xfeed;
 //   printf("%x : %x\n", header, breachType);
-//   const char* alertInfo = "0xfeed : breachType";
   char buffer[25];
   sprintf(buffer,"%x : %x\n",header, breachType);
   fn_ptrAlert(buffer);
@@ -62,11 +61,14 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) 
 void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[])) {
   const char* recepient = "a.b@c.com";
   char recepientMsg[] = "To: ";
+  const buffer[100];
   strcat(recepientMsg,recepient);
 //   printf("To: %s\n", recepient);
-  fn_ptrAlert(recepientMsg);
+  sprintf(buffer,"%s\n, %s\n",recepientMsg,msgInput[breachType]);
+  fn_ptrAlert(buffer);
+//   fn_ptrAlert(recepientMsg);
 //   char alertMsg = msgInputEmail[breachType];
-  fn_ptrAlert(msgInput[breachType]);
+//   fn_ptrAlert(msgInput[breachType]);
 //   switch(breachType) {
 //     case TOO_LOW:
 //       printf("To: %s\n", recepient);
