@@ -36,4 +36,35 @@ TEST_CASE("infers alert notification") {
     batteryChar.coolingType = PASSIVE_COOLING;
     checkAndAlert(alertTarget, batteryChar, 36);
     assert(microcontrollerAlertCount == 1);
+    assert(emailAlertCount == 0);
+  
+    AlertTarget alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 2);
+    assert(emailAlertCount == 0);
+  
+    AlertTarget alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 2);
+    assert(emailAlertCount == 0);
+  
+    AlertTarget alertTarget = TO_EMAIL;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 36);
+    assert(microcontrollerAlertCount == 2);
+    assert(emailAlertCount == 1);
+  
+    AlertTarget alertTarget = TO_EMAIL;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 2);
+    assert(emailAlertCount == 2);
+  
+    AlertTarget alertTarget = TO_EMAIL;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 2);
+    assert(emailAlertCount == 2);
 }
