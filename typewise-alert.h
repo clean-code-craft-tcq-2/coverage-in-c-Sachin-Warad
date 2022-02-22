@@ -16,7 +16,8 @@ typedef enum {
 
 typedef enum {
   TO_CONTROLLER,
-  TO_EMAIL
+  TO_EMAIL,
+  MaxAlertTarget
 } AlertTarget;
 
 typedef struct {
