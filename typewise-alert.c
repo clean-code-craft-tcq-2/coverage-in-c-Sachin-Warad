@@ -35,21 +35,12 @@ void printOnConsole(const char msg[]) {
     printf("%s",msg);
 }
 
-void checkAndAlert(
-    AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
+void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
+  
   fn_ptrAlert AlerterFcn= &printOnConsole;
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC, parameterLimits);
   
   fn_ptrAlertTarget[alertTarget](breachType, AlerterFcn);
-
-//   switch(alertTarget) {
-//     case TO_CONTROLLER:
-//       sendToController(breachType, fn_ptrAlert);
-//       break;
-//     case TO_EMAIL:
-//       sendToEmail(breachType, msgInput, fn_ptrAlert);
-//       break;
-//   }
 }
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
