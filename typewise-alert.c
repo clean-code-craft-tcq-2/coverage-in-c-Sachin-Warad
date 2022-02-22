@@ -52,7 +52,6 @@ void checkAndAlert(
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   const unsigned short header = 0xfeed;
-//   printf("%x : %x\n", header, breachType);
   char buffer[25];
   sprintf(buffer,"%x : %x\n",header, breachType);
   fn_ptrAlert(buffer);
@@ -63,22 +62,7 @@ void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAler
   char recepientMsg[] = "To: ";
   char buffer[100];
   strcat(recepientMsg,recepient);
-//   printf("To: %s\n", recepient);
   sprintf(buffer,"%s\n, %s\n",recepientMsg,msgInput[breachType]);
   fn_ptrAlert(buffer);
-//   fn_ptrAlert(recepientMsg);
-//   char alertMsg = msgInputEmail[breachType];
-//   fn_ptrAlert(msgInput[breachType]);
-//   switch(breachType) {
-//     case TOO_LOW:
-//       printf("To: %s\n", recepient);
-//       printf("Hi, the temperature is too low\n");
-//       break;
-//     case TOO_HIGH:
-//       printf("To: %s\n", recepient);
-//       printf("Hi, the temperature is too high\n");
-//       break;
-//     case NORMAL:
-//       break;
-//   }
+
 }
