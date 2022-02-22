@@ -10,6 +10,8 @@ Limits parameterLimits[MAX_COOLINGTYPE] = {
 
 const char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
 
+typedef void(*fn_ptrAlertTarget[MaxAlertTarget])(BreachType)(void (*fn_ptrAlert)(const char[])) = {sendToController, sendToEmail};
+
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
     return TOO_LOW;
@@ -36,17 +38,17 @@ void checkAndAlert(
     AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
   void (*fn_ptrAlert)(const char[]);
   fn_ptrAlert = &printOnConsole;
-  BreachType breachType = classifyTemperatureBreach(
-    batteryChar.coolingType, temperatureInC, parameterLimits
-  );
+  BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC, parameterLimits);
+  
+  fn_ptrAlertTarget[alertTarget](breachType)(fn_ptrAlert);
 
-  switch(alertTarget) {
-    case TO_CONTROLLER:
-      sendToController(breachType, fn_ptrAlert);
-      break;
-    case TO_EMAIL:
-      sendToEmail(breachType, msgInput, fn_ptrAlert);
-      break;
+//   switch(alertTarget) {
+//     case TO_CONTROLLER:
+//       sendToController(breachType, fn_ptrAlert);
+//       break;
+//     case TO_EMAIL:
+//       sendToEmail(breachType, msgInput, fn_ptrAlert);
+//       break;
   }
 }
 
@@ -57,12 +59,11 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) 
   fn_ptrAlert(buffer);
 }
 
-void sendToEmail(BreachType breachType, const char **msgInput, void (*fn_ptrAlert)(const char[])) {
+void sendToEmail(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   const char* recepient = "a.b@c.com";
   char recepientMsg[] = "To: ";
   char buffer[100];
   strcat(recepientMsg,recepient);
   sprintf(buffer,"%s\n, %s\n",recepientMsg,msgInput[breachType]);
   fn_ptrAlert(buffer);
-
 }
