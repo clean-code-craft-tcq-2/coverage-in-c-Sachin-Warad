@@ -28,3 +28,12 @@ TEST_CASE("infers breach based on cooling type") {
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 36, parameterLimits) == NORMAL);
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 44, parameterLimits) == TOO_HIGH);
 }
+
+TEST_CASE("infers alert notification") {
+    BatteryCharacter batteryChar;
+  
+    AlertTarget alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = PASSIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 36);
+    assert(microcontrollerAlertCount == 1);
+}
