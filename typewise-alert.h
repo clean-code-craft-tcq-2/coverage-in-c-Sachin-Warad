@@ -37,8 +37,8 @@ typedef struct {
 #define MED_ACTIVE_COOLING_MinLimit 0
 #define MED_ACTIVE_COOLING_MaxLimit 40
 
-extern emailAlertCount;
-extern microcontrollerAlertCount;
+extern int emailAlertCount;
+extern int microcontrollerAlertCount;
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit);
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC, Limits parameterLimits[]);
