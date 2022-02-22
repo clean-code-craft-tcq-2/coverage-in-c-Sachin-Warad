@@ -41,8 +41,9 @@ void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double
   
   fn_ptrAlert AlerterFcn= &printOnConsole;
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC, parameterLimits);
-  
-  fn_ptrAlertTarget[alertTarget](breachType, AlerterFcn);
+  if(breachType != NORMAL) {
+    fn_ptrAlertTarget[alertTarget](breachType, AlerterFcn);
+  }
 }
 
 void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
