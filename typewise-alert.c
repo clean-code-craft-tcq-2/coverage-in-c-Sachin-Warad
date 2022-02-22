@@ -10,7 +10,8 @@ Limits parameterLimits[MAX_COOLINGTYPE] = {
 
 const char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
 
-typedef void(*fn_ptrAlertTarget[MaxAlertTarget])(BreachType)(void (*fn_ptrAlert)(const char[])) = {sendToController, sendToEmail};
+void (*fn_ptrAlert)(const char[]);
+void(*fn_ptrAlertTarget[MaxAlertTarget])(BreachType,fn_ptrAlert) = {sendToController, sendToEmail};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -36,11 +37,10 @@ void printOnConsole(const char msg[]) {
 
 void checkAndAlert(
     AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
-  void (*fn_ptrAlert)(const char[]);
   fn_ptrAlert = &printOnConsole;
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC, parameterLimits);
   
-  fn_ptrAlertTarget[alertTarget](breachType)(fn_ptrAlert);
+  fn_ptrAlertTarget[alertTarget](breachType,fn_ptrAlert);
 
 //   switch(alertTarget) {
 //     case TO_CONTROLLER:
