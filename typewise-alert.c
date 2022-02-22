@@ -12,6 +12,8 @@ const char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, 
 
 typedef void (*fn_ptrAlert)(const char[]);
 void(*fn_ptrAlertTarget[MaxAlertTarget])(BreachType,fn_ptrAlert) = {sendToController, sendToEmail};
+int emailAlertCount = 0;
+int microcontrollerAlertCount = 0;
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -48,6 +50,7 @@ void sendToController(BreachType breachType, void (*fn_ptrAlert)(const char[])) 
   char buffer[25];
   sprintf(buffer,"%x : %x\n",header, breachType);
   fn_ptrAlert(buffer);
+  microcontrollerAlertCount += 1;
 }
 
 void sendToEmail(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
@@ -57,4 +60,5 @@ void sendToEmail(BreachType breachType, void (*fn_ptrAlert)(const char[])) {
   strcat(recepientMsg,recepient);
   sprintf(buffer,"%s\n, %s\n",recepientMsg,msgInput[breachType]);
   fn_ptrAlert(buffer);
+  emailAlertCount += 1;
 }
