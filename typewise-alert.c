@@ -10,7 +10,7 @@ Limits parameterLimits[MAX_COOLINGTYPE] = {
 
 const char *msgInput[MaxBreachType] = {"","Hi, the temperature is too low","Hi, the temperature is too high"};
 
-void (*fn_ptrAlert)(const char[]);
+typedef void (*fn_ptrAlert)(const char[]);
 void(*fn_ptrAlertTarget[MaxAlertTarget])(BreachType,fn_ptrAlert) = {sendToController, sendToEmail};
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
