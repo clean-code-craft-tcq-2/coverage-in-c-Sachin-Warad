@@ -68,4 +68,76 @@ TEST_CASE("infers alert notification") {
     checkAndAlert(alertTarget, batteryChar, 20);
     assert(microcontrollerAlertCount == 2);
     assert(emailAlertCount == 2);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 46);
+    assert(microcontrollerAlertCount == 3);
+    assert(emailAlertCount == 2);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 4);
+    assert(emailAlertCount == 2);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 4);
+    assert(emailAlertCount == 2);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 46);
+    assert(microcontrollerAlertCount == 4);
+    assert(emailAlertCount == 3);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 4);
+    assert(emailAlertCount == 4);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = HI_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 4);
+    assert(emailAlertCount == 4);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 41);
+    assert(microcontrollerAlertCount == 5);
+    assert(emailAlertCount == 4);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 6);
+    assert(emailAlertCount == 4);
+  
+    alertTarget = TO_CONTROLLER;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 6);
+    assert(emailAlertCount == 4);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 41);
+    assert(microcontrollerAlertCount == 6);
+    assert(emailAlertCount == 5);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, -3);
+    assert(microcontrollerAlertCount == 6);
+    assert(emailAlertCount == 6);
+  
+    alertTarget = TO_EMAIL;
+    batteryChar.coolingType = MED_ACTIVE_COOLING;
+    checkAndAlert(alertTarget, batteryChar, 20);
+    assert(microcontrollerAlertCount == 6);
+    assert(emailAlertCount == 6);
 }
